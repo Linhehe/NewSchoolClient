@@ -1,0 +1,34 @@
+<ion-view view-title="数据统计" hide-back-button="true">
+
+    <ion-nav-buttons side="left">
+        <i class="ion-ios-arrow-back ion-icon-a" ng-click="back()"></i>
+        <span style="font-size: 18px; margin-left: 5px; margin-top: 8px;" ng-click="back()">首页</span>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <i class="ion-ios-calendar-outline ion-icon-a" style="margin-right: 10px;" ng-click="check()"></i>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <!--<div ng-show="reported">-->
+            <div align="center" style="font-size: 16px; font-weight: bold;">{{title}}</div>
+            <div style="float: right;">
+                <div style="background-color: #507bee; width: 20px; height: 20px; float: left;"></div>
+                <span style="float: left;">&nbsp;&nbsp;已报道</span>
+            </div>
+            <br/>
+            <div style="float: right; margin-top: 5px;">
+                <div style="background-color: #ec4f79; width: 20px; height: 20px; float: left;"></div>
+                <span style="float: left;">&nbsp;&nbsp;未报道</span>
+            </div>
+            <div style="margin-top: 50px;">
+                <!--<canvas id="bar" class="chart chart-bar" data="graph.data" labels="graph.labels" series='graph.series' height="300"></canvas>-->
+                <canvas id="pie" class="chart chart-pie" data="data" labels="labels" colours="colours" height="250"></canvas>
+            </div>
+            <div style="margin-top: 40px;">
+                <span>已报道人数: {{reported}}人</span>
+                <br/>
+                <!--<span>未报道人数: {{noreport}}人, 占比: <span style="color: red;">{{noreport_bfb | number:2}}%</span></span>-->
+                <span>未报道人数: {{noreport}}人</span>
+            </div>
+        <!--</div>-->
+    </ion-content>
+</ion-view>

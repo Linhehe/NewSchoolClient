@@ -1,0 +1,27 @@
+<ion-view view-title="学院公告">
+    <ion-nav-buttons side="left">
+        <i class="ion-ios-arrow-back ion-icon-a" ng-click="back()"></i>
+        <span style="font-size: 18px; margin-left: 5px; margin-top: 8px;" ng-click="back()">首页</span>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-refresher
+                pulling-text="下拉刷新..."
+                on-refresh="doRefresh()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item class="item-remove-animate  item-icon-right" ng-repeat="infor in infors"  href="#/college_tab/collegeBulletin/{{infor.id}}">
+
+                <h2>{{infor.title}}</h2>
+                <span>{{infor.contents}}</span>
+                <br/>
+                <div align="right">
+                    <span>{{infor.time}}</span>
+                </div>
+
+                <!--<ion-option-button class="button-assertive " ng-click="remove(infor)">-->
+                <!--删除-->
+                <!--</ion-option-button>-->
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

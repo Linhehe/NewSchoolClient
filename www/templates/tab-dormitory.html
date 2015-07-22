@@ -1,0 +1,36 @@
+<ion-view view-title="选择宿舍" hide-back-button="true">
+  <ion-nav-buttons side="left">
+    <i class="ion-ios-arrow-back ion-icon-a" ng-click="back()"></i>
+    <span style="font-size: 18px; margin-left: 5px; margin-top: 8px;" ng-click="back()">返回</span>
+  </ion-nav-buttons>
+  <ion-content >
+
+      <ion-refresher
+              pulling-text="下拉刷新..."
+              on-refresh="doRefresh()">
+      </ion-refresher>
+
+          <!--<table>-->
+              <!--<tr style="width: 100%">-->
+                  <!--<td align="center" style="">-->
+                          <!--<button class="large button blue" collection-repeat="user in users track by user.DormId" value="{{user.DormId}}" ng-click="getval(user.DormId)" style="width: 30%; margin-right: 5px;margin-top: 5px; background-color: {{bgcolor}}">{{user.DormNumber}}-->
+                              <!--<br/>-->
+                              <!--<span ng-show="user.OrderDorm">剩余床位：{{user.OrderDorm}}</span>-->
+                              <!--</span><span ng-hide="user.OrderDorm">(满)</span></button>-->
+                  <!--</td>-->
+              <!--</tr>-->
+          <!--</table>-->
+      <ion-list>
+          <ion-item ng-show="choosed.DormNumber">
+              <span style="color: red;">恭喜，你已经成功入住：</span>
+              <span style="float: right; color: red;">{{choosed.DormNumber}}</span>
+          </ion-item>
+          <ion-item ng-repeat="user in users track by user.DormId" ng-click="getval(user.DormId)" value="{{user.DormId}}">
+              <span>{{user.DormNumber}}</span>
+              <span ng-show="user.OrderDorm" style="float: right;">剩余床位：{{user.OrderDorm}}</span>
+              <span ng-hide="user.OrderDorm" style="float: right;">(满)</span>
+          </ion-item>
+      </ion-list>
+
+  </ion-content>
+</ion-view>

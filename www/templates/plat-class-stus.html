@@ -1,0 +1,12 @@
+<ion-view view-title="班级成员">
+    <ion-content class="padding">
+        <ion-list>
+            <ion-item class="item item-avatar" ng-repeat="student in students" href="#/teacher_terrace/plat-college/{{aa}}/{{bb}}/{{cc}}/{{student.StudentID}}">
+                <img src="{{student.Photo}}">
+                <h2>姓名：{{student.StudentName}}</h2>
+                <h2>学号：{{student.Examcode}}</h2>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>

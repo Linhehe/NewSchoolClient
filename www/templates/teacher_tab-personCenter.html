@@ -1,0 +1,37 @@
+<ion-view cache-view="false" view-title="个人中心">
+
+    <!--<ion-nav-buttons side="right">-->
+        <!--<button class="button button-clear" ng-click="edit()">Edit</button>-->
+    <!--</ion-nav-buttons>-->
+    <ion-content class="padding">
+        <div class="card">
+            <div class="item item-divider">
+                <span style="font-size: 20px;">{{teacher.TeacherName}}</span>
+            </div>
+            <p class="item item-text-wrap">
+                <!--{{teacher.abstract}}-->{{profession.ProfessionName}}{{teacher.Clazz}}班班主任
+            </p>
+        </div>
+        <div class="list  list-inset">
+            <div class="item">
+                手机号码
+                <span class="item-note">{{teacher.TeacherPhone}}</span>
+            </div>
+            <!--<div class="item">-->
+                <!--QQ-->
+                <!--<span class="item-note">{{teacher.QQ}}</span>-->
+            <!--</div>-->
+            <div class="item">
+                班会时间
+                <span class="item-note">{{teacher.MettingTime}}</span>
+            </div>
+            <div class="item">
+                班会地点
+                <span class="item-note">{{teacher.MeetingPlace}}</span>
+            </div>
+        </div>
+        <button class="button button-block button-positive" ng-click="changepassword()">修改密码</button>
+        <button class="button button-block button-assertive" ng-click="cancellation()">注销</button>
+
+    </ion-content>
+</ion-view>

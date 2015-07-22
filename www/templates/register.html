@@ -1,0 +1,42 @@
+<ion-view view-title="学生管理系统APP注册" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <i class="ion-ios-arrow-back ion-icon-a" ng-click="lastFoot()"></i>
+        <span style="font-size: 18px; margin-left: 5px; margin-top: 8px;" ng-click="lastFoot()">返回</span>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <div class="list">
+            <!--<label class="item item-input">-->
+                <!--<i class="icon ion-iphone ion-icon-a phone" style="width: 40px"></i>-->
+                <!--<input type="text" placeholder="手机号码" style="font-size: 17px;" ng-model="user.registerPhone"/>-->
+            <!--</label>-->
+
+            <label class="item item-input ">
+                <i class="icon ion-card ion-icon-a" style="width: 40px"></i>
+                <input type="text" placeholder="身份证号码" style="font-size: 17px;margin-left: 8px" ng-model="user.ID_card"/>
+            </label>
+
+            <label class="item item-input">
+                <i class="icon ion-ios-locked ion-icon-a pwd" style="width: 40px"></i>
+                <input type="password" placeholder="密码" style="font-size: 17px;margin-left: 5px" ng-model="user.password"/>
+            </label>
+
+            <label class="item item-input">
+                <i class="icon ion-ios-locked ion-icon-a pwd" style="width: 40px"></i>
+                <input type="password" placeholder="确定密码" style="font-size: 17px;margin-left: 5px" ng-model="user.check_password"/>
+            </label>
+
+            <!--<label class="item item-input">-->
+                <!--<i class="icon ion-ios-barcode ion-icon-a" style="width: 40px"></i>-->
+                <!--<input type="text" placeholder="验证码" style="font-size: 17px;margin-left: 8px" ng-model="user.code"/>-->
+            <!--</label>-->
+
+        </div>
+        <div align="center">
+            <!--<button class="button button-positive button-block" ng-click="getCode()">获取验证码</button>-->
+            <button class="button button-block button-positive" ng-click="lastFoot()" >上一步</button>
+            <button class="button button-block button-positive" ng-click="register()">确定</button>
+        </div>
+
+
+    </ion-content>
+</ion-view>

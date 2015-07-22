@@ -1,0 +1,37 @@
+<ion-view view-title="班级消息">
+    <ion-nav-buttons side="left">
+        <i class="ion-ios-arrow-back ion-icon-a" ng-click="myGoBack()"></i>
+        <span style="font-size: 18px; margin-left: 5px; margin-top: 8px;" ng-click="myGoBack()">Back</span>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <div class="list card">
+            <div class="item item-divider">班级消息</div>
+            <div class="item item-body">
+                <div>
+                    {{classmessage.text}}
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-divider">
+                班级最新动态
+            </div>
+            <!--ng-repeat实现每次点击都会传递一个新的post参数到数组post中 -->
+            <div class="item item-text-wrap" ng-repeat="post in posts" href="#/message" ng-click="addUpvotes(post)">
+                    <!-- 绑定的头像图片-->
+                    <img src="./img/ionic.png" style="float: left" >
+                    <p>亲爱的同学们，我们班级将开展植树活动啦</p>
+                    <div>
+                        <p style="color: blue;float: left">{{post.upvotes}}人已读</p>
+                        <!-- 获取时间-->
+                        <p style="color: blue;float: right">{{date | date:'MM/dd hh:mm:ss'}}</p>
+                    </div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+
+
+    </ion-content>
+</ion-view>

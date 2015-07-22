@@ -1,0 +1,48 @@
+<!--在tab中创建新的视图，视图的title绑定student中的name属性-->
+<ion-view view-title="详细信息">
+    <ion-content class="padding">
+        <div class="list list-inset" >
+                <label class="item item-input" style="padding-right: 15px; padding-top: 2%;padding-bottom: 2%;">
+                    <div style="float: left">
+                        <img ng-src="{{student.Photo}}" style="width: 64px; height: 64px"></div>
+                    <div style="float: left;margin-left: 20px">
+                        <label class=" item-input" style="padding-right: 15px">
+                            <span class="label">姓名：</span>
+                            <span class="label_1" style="text-align: right">{{student.StudentName}}</span>
+                        </label>
+                        <label class=" item-input"style="padding-right: 15px">
+                            <span class="label">性别：</span>
+                            <span class="label_1"  style="text-align: right">{{student.SexChar}}</span>
+                        </label>
+                    </div>
+                </label>
+        </div>
+
+        <div class="list list-inset" >
+            <div class="item">
+               学号
+                <span class="item-note">{{student.Examcode}}</span>
+            </div>
+            <div class="item">
+                电话
+                <span class="item-note">{{student.Phone}}</span>
+            </div>
+            <div class="item">
+                身份证
+                <span class="item-note">{{student.IdCode}}</span>
+            </div>
+            <div class="item">
+                宿舍
+                <span class="item-note">{{DormNumber.DormNumber}}</span>
+            </div>
+            <div class="item">
+                籍贯
+                <span class="item-note">{{AreaName.AreaName}}</span>
+            </div>
+            <div class="item">
+                身份
+                <span class="item-note">{{student.PoliticsStatus}}</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,27 @@
+<ion-view view-title="信息中心">
+    <ion-content class="padding">
+        <ion-refresher
+                pulling-text="下拉刷新..."
+                on-refresh="doRefresh()">
+        </ion-refresher>
+
+
+        <div class="list" ng-repeat="infor in infors" >
+            <div class="item item-divider" >
+                {{infor.title}}
+            </div>
+            <!--ng-repeat实现每次点击都会传递一个新的post参数到数组post中 -->
+            <div >
+                <!-- 添加其点击监控方法，返回参数为post-->
+                <ion-item  href="#/inforCenter/{{infor.id}}">
+                    {{infor.contents}}
+                </ion-item>
+            </div>
+            <div class="item item-divider" align="right" style="color: darkgray; font-size: 14px;">
+                {{infor.time}}
+            </div>
+
+        </div>
+
+    </ion-content>
+</ion-view>

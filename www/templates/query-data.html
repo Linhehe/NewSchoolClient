@@ -1,0 +1,65 @@
+<ion-view view-title="查询"> <!-- hide-back-button="true"-->
+    <ion-content class="padding">
+        <div>
+            <label>
+                <ion-list>
+                    <ion-item style="font-weight: bold" ng-click="datacheck()">学院
+                        <span class="item-note">{{school.college}}</span></ion-item>
+
+                </ion-list>
+                <div style="display: {{college_display}}">
+                    <ion-radio ng-click="datacheck()"  value="{{key}}" ng-repeat="(key,value) in colleges" ng-model="school.college" ng-change="school.profession='';collegeChoose(school.college)">{{key}}</ion-radio>
+                </div>
+            </label>
+            <br/>
+            <label>
+                <ion-list>
+                    <ion-item style="font-weight: bold" ng-click="prodatacheck()" >专业
+                        <span class="item-note">{{school.profession}}</span></ion-item>
+
+                </ion-list>
+                <div style="display: {{profession_display}}">
+                    <ion-radio ng-click="prodatacheck()"  value="{{value}}" ng-repeat="value in colleges[school.college]" ng-model="school.profession" ng-change="professionChoose(school.profession)">{{value}}</ion-radio>
+                </div>
+            </label>
+            <br/>
+            <span>&nbsp;*&nbsp;如果专业选择"全院"那么查看的是学院的数据统计</span>
+            <br/>
+            <div align="center">
+                <button class="button button-block button-positive" ng-click="check()" style="margin-top: 50px;">查询数据</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+<!--<ion-view view-title="查询"> &lt;!&ndash; hide-back-button="true"&ndash;&gt;-->
+    <!--<ion-content class="padding">-->
+        <!--<div>-->
+            <!--<label class="item item-input item-select">-->
+                <!--<div class="input-label">-->
+                    <!--学院-->
+                <!--</div>-->
+                <!--<select required="" ng-model="school.college" ng-options="key as key for (key,value) in colleges" ng-change="school.banji='';">-->
+
+                    <!--<option value="">全校</option>-->
+                <!--</select>-->
+            <!--</label>-->
+            <!--&lt;!&ndash;<br/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<label class="item item-input item-select">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="input-label">&ndash;&gt;-->
+                    <!--&lt;!&ndash;班级&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<select ng-model="school.banji" ng-options="value as value for value in colleges[school.college]">&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<option value=""></option>&ndash;&gt;-->
+                <!--&lt;!&ndash;</select>&ndash;&gt;-->
+            <!--&lt;!&ndash;</label>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<br/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<span>&nbsp;*&nbsp;如果班级没有选择那么查看的是学院的数据统计</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;<br/>&ndash;&gt;-->
+            <!--<div align="center">-->
+                <!--<button class="button button-block button-positive" ng-click="check()" style="margin-top: 50px;">查询数据</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</ion-content>-->
+<!--</ion-view>-->

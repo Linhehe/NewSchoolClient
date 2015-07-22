@@ -1,0 +1,16 @@
+<ion-view view-title="专业简介">
+    <ion-nav-buttons side="left">
+        <i class="ion-ios-arrow-back ion-icon-a" ng-click="back()"></i>
+        <span style="font-size: 18px; margin-left: 5px; margin-top: 8px;" ng-click="back()">首页</span>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <div class="card">
+            <div class="item item-divider">
+                {{profile.title}}
+            </div>
+            <div class="item item-text-wrap" ng-bind-html="profile.content">
+                <!--{{profile.content}}-->
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,57 @@
+
+<ion-view cache-view="false" view-title="个人信息">
+  <ion-content class="padding">
+    <label class="item item-input" style="padding-right: 15px; padding-top: 2%;padding-bottom: 2%;">
+      <div style="float: left">
+        <img ng-src="{{student.Photo}}" style="width: 64px; height: 64px"></div>
+      <div style="float: left;margin-left: 20px">
+        <label class=" item-input" style="padding-right: 15px">
+          <span class="label">姓名：</span>
+          <span class="label_1" style="text-align: right">{{student.StudentName}}</span>
+        </label>
+        <label class=" item-input"style="padding-right: 15px">
+          <span class="label">性别：</span>
+          <span class="label_1"  style="text-align: right">{{student.Sex}}</span>
+        </label>
+      </div>
+    </label>
+
+
+    <div class="list list-inset" >
+      <div class="item">
+        学号
+        <span class="item-note">{{student.Examcode}}</span>
+      </div>
+      <div class="item">
+        电话
+        <span class="item-note">{{student.Phone}}</span>
+      </div>
+      <!--<div class="item">-->
+        <!--QQ-->
+        <!--<span class="item-note">{{student.qq}}</span>-->
+      <!--</div>-->
+      <!--<div class="item">-->
+        <!--宿舍-->
+        <!--<span class="item-note">{{student.DormId}}</span>-->
+      <!--</div>-->
+      <div class="item">
+        籍贯
+        <span class="item-note">{{student.AreaId}}</span>
+      </div>
+      <!--<div class="item">-->
+        <!--爱好-->
+        <!--<span class="item-note">{{student.hobby}}</span>-->
+      <!--</div>-->
+      <div class="item">
+        是否报道
+        <span class="item-note" style="color: {{recolor}};">{{student.IsRegister}}</span>
+      </div>
+      <!--<div class="item">-->
+        <!--是否缴费-->
+        <!--<span class="item-note" style="color: {{color}};">{{isPay}}</span>-->
+      <!--</div>-->
+    </div>
+    <button class="button button-positive button-block" ng-click="cancellation()">注销</button>
+
+  </ion-content>
+</ion-view>

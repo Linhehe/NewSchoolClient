@@ -1,0 +1,16 @@
+<ion-view view-title="专业查看">
+    <ion-content class="padding">
+        <ion-list>
+            <ion-item class="item-remove-animate  item-icon-right" ng-repeat="profession in professions"  href="#/teacher_terrace/plat-college/{{aa}}/{{profession.ProfessionId}}">
+
+                <h2>{{profession.ProfessionName}}</h2>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <!--<ion-option-button class="button-assertive " ng-click="remove(chat)">-->
+                <!--删除-->
+                <!--</ion-option-button>-->
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

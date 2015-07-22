@@ -1,0 +1,28 @@
+<ion-view view-title="个人中心">
+    <ion-nav-buttons side="left">
+        <i class="ion-ios-arrow-back ion-icon-a" ng-click="back()"></i>
+        <span style="font-size: 18px; margin-left: 5px; margin-top: 8px;" ng-click="back()">Back</span>
+        </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="finish()">Finish</button>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="手机号码" style="font-size: 17px;" ng-model="teacher.phone"/>
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="QQ" style="font-size: 17px;" ng-model="teacher.QQ"/>
+            </label>
+            <label class="item item-input ">
+                <input type="text" placeholder="邮箱" style="font-size: 17px;" ng-model="teacher.email"/>
+            </label>
+            <label class="item item-input ">
+                <input type="text" placeholder="办公地址" style="font-size: 17px;" ng-model="teacher.address"/>
+            </label>
+            <label class="item item-input ">
+                <textarea name="" id="" cols="30" rows="10" placeholder="简介" style="font-size: 17px; padding-top: 10px;" ng-model="teacher.abstract"></textarea>
+            </label>
+        </div>
+    </ion-content>
+</ion-view>

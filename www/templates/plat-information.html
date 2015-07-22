@@ -1,0 +1,56 @@
+<ion-view view-title="信息发送" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <i class="ion-ios-arrow-back ion-icon-a" ng-click="back()"></i>
+        <span style="font-size: 18px; margin-left: 5px; margin-top: 8px;" ng-click="back()">首页</span>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <div class="list">
+
+            <label>
+                <ion-list>
+                    <ion-item ng-click="college_check()" style="font-weight: bold"><span style="color: red;">选择接受学院</span>
+                        <span class="item-note">{{school.college}}</span></ion-item>
+                </ion-list>
+                <div style="display:{{college_display}}"  >
+                    <ion-radio ng-repeat="(key,value) in colleges" ng-model="school.college" ng-change="school.profession='';change(school.college)" value="{{key}}" name="collegess" ng-click="college_check()">{{key}}</ion-radio>
+                </div>
+            </label>
+            <label>
+                <ion-list>
+                    <ion-item style="font-weight: bold"><span style="color: red;">选择接受专业</span>
+                        <span class="item-note">{{school.profession}}</span></ion-item>
+                </ion-list>
+                <div style="display: {{profession_display}}">
+                    <ion-radio ng-repeat="value in colleges[school.college]" ng-click="profession_check()" ng-model="school.profession" ng-change="professionChoose(school.profession)" value="{{value}}">{{value}}</ion-radio>
+                </div>
+            </label>
+            <label>
+                <ion-list>
+                    <ion-item style="font-weight: bold"><span style="color: red;">选择接受班级</span>
+                        <span class="item-note">{{school.banji}}</span></ion-item>
+                </ion-list>
+                <div style="display: {{banji_display}}">
+                    <ion-radio ng-repeat="value in array" ng-click="banji_check()" ng-model="school.banji" ng-change="banjiChooose(school.banji)" value="{{value}}">{{value}}</ion-radio>
+                </div>
+            </label>
+        </div>
+        <div>
+            <label class="item item-input">
+                <input type="text" placeholder="信息标题" ng-model="message.title"/>
+            </label>
+            <br/>
+            <label class="item item-input">
+                <textarea name="" id="" cols="30" rows="10" placeholder="信息内容" ng-model="message.content"></textarea>
+            </label>
+            <br/>
+            <div align="center">
+                <button class="button button-positive" ng-click="cancel();" style="width: 47%">
+                    重置
+                </button>
+                <button class="button button-positive" ng-click="send()" style="width: 47%">
+                    发布
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
