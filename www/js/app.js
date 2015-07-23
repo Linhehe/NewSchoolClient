@@ -9,35 +9,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .run(function($ionicPlatform,jpushService,$state,$cookies,$ionicPopup,$ionicDeploy) {
 
-        // Check for updates
-        $ionicDeploy.check().then(function(response) {
-                // response will be true/false
-                if (response) {
-                    // Download the updates
-                    $ionicDeploy.download().then(function() {
-                        // Extract the updates
-                        $ionicDeploy.extract().then(function() {
-                            // Load the updated version
-                            $ionicDeploy.load();
-                        }, function(error) {
-                            // Error extracting
-                        }, function(progress) {
-                            // Do something with the zip extraction progress
-                            $scope.extraction_progress = progress;
-                        });
-                    }, function(error) {
-                        // Error downloading the updates
-                    }, function(progress) {
-                        // Do something with the download progress
-                        $scope.download_progress = progress;
-                    });
-                }
-            },
-            function(error) {
-                // Error checking for updates
-            });
-
   $ionicPlatform.ready(function() {
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

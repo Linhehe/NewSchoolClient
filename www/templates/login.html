@@ -1,6 +1,11 @@
 
 <ion-view view-title="学生管理系统登录" hide-back-button="true">
     <ion-content class="padding">
+
+        <!--<div align="center" style="margin-top: 10%;">-->
+            <!--<img src="img/icon.png" style="width: 20%;"/>-->
+        <!--</div>-->
+
         <div class="list list-inset">
             <label class="item item-input"  >
                 <i class="icon ion-person ion-icon-a" style="width: 40px"></i>
@@ -11,30 +16,18 @@
                 <input type="password" placeholder="请输入密码" style="font-size: 17px;" ng-model="user.password"/>
             </label>
 
-            <!--<div class="list list-inset" >-->
-                <!--<label class="item">-->
-                        <!--选择登录类型-->
-                    <!--&lt;!&ndash;<select ng-model="user.usertype" ng-change="choose(user.usertype)">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option value="学生">学生</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option value="教师">教师</option>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                <!--</label>-->
+            <label>
+                <ion-list>
+                    <ion-item style="font-weight: bold" ng-click="check()">选择登录类型
+                        <span class="item-note">{{user.usertype}}</span></ion-item>
 
-            <!--</div>-->
-        <!--<button class="button button-calm button-block">dianji</button>-->
-        <label>
-            <ion-list>
-                <ion-item style="font-weight: bold" ng-click="check()">选择登录类型
-                    <span class="item-note">{{user.usertype}}</span></ion-item>
-
-            </ion-list>
-            <div style="display: {{display}}">
-                <ion-radio  value="学生" ng-click="check()" ng-model="user.usertype" ng-change="choose(user.usertype)">学生123</ion-radio>
-                <ion-radio  value="教师" ng-click="check()" ng-model="user.usertype" ng-change="choose(user.usertype)">教师</ion-radio>
-            </div>
-        </label>
+                </ion-list>
+                <div style="display: {{display}}">
+                    <ion-radio  value="学生" ng-click="check()" ng-model="user.usertype" ng-change="choose(user.usertype)">学生</ion-radio>
+                    <ion-radio  value="教师" ng-click="check()" ng-model="user.usertype" ng-change="choose(user.usertype)">教师</ion-radio>
+                </div>
+            </label>
         </div>
-
 
         <div align="center">
             <button class="button button-block button-positive " ng-click="login()">登录</button>
