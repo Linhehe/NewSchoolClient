@@ -554,7 +554,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                                     template: '你已经选择了宿舍，不能再选了'
                                 });
                                 $scope.bgcolor = "#cccccc";
-                                //$scope.choosed = data;
+                                $scope.choosed = data;
                             }else{
                                 $scope.canChose = true;
                             }
@@ -598,7 +598,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                                                                 //
                                                                 $ionicLoading.hide();
                                                                 //
-                                                                $scope.choosed = data;
+                                                                //$scope.choosed = data;
                                                                 //
                                                                 $ionicPopup.alert({
                                                                     title: '恭喜',
