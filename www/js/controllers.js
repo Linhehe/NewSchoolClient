@@ -64,7 +64,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                         $ionicLoading.show({
                             templateUrl: 'templates/loadingPage.html'
                         });
-                        $http.get('http://120.24.208.184:3000/login', {params:{usertype: $scope.user.usertype, registerPhone: $scope.user.phone, password: $scope.user.password, username: $scope.user.phone}})
+                        $http.get('http://localhost:3000/login', {params:{usertype: $scope.user.usertype, registerPhone: $scope.user.phone, password: $scope.user.password, username: $scope.user.phone}})
                             .success(function (data) {
                                 if(data == 'error'){
                                     $ionicPopup.alert({
@@ -146,7 +146,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                     if($scope.user.check_password == $scope.user.password){
                         //
                         $http({
-                            url: 'http://120.24.208.184:3000/sessions',
+                            url: 'http://localhost:3000/sessions',
                             method: "POST",
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                             data: param({ID_card: $scope.user.ID_card, password: $scope.user.password, registerPhone: $cookies.phone})
@@ -207,7 +207,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/code', {params:{phone: $scope.user.registerPhone}})
+            $http.get('http://localhost:3000/code', {params:{phone: $scope.user.registerPhone}})
                 .success(function(data){
                     //
                     if(data == 'success'){
@@ -264,7 +264,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 });
                 //
                 $http({
-                    url: 'http://120.24.208.184:3000/codecheck',
+                    url: 'http://localhost:3000/codecheck',
                     method: "POST",
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: param({phone: $scope.user.registerPhone, codes: $scope.user.code})
@@ -306,7 +306,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         $ionicLoading.show({
             templateUrl: 'templates/loadingPage.html'
         });
-        $http.get('http://120.24.208.184:3000/letter', {params:{user: $cookies.user}})
+        $http.get('http://localhost:3000/letter', {params:{user: $cookies.user}})
             .success(function(data){
                 //
                 //alert(data.content);
@@ -337,7 +337,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/messageGet', {params:{user: $cookies.user}})
+            $http.get('http://localhost:3000/messageGet', {params:{user: $cookies.user}})
                 .success(function(data){
                     //
                     $scope.message = data;
@@ -360,7 +360,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/messageGet', {params:{user: $cookies.user}})
+            $http.get('http://localhost:3000/messageGet', {params:{user: $cookies.user}})
                 .success(function(data){
                     //
                     $scope.message = data;
@@ -422,7 +422,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 $ionicLoading.show({
                     templateUrl: 'templates/loadingPage.html'
                 });
-                $http.get('http://120.24.208.184:3000/check', {
+                $http.get('http://localhost:3000/check', {
                     params: {
                         select: $scope.user.select,
                         user: $cookies.user
@@ -434,7 +434,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                             //$state.go('results');
                             //
                             $http({
-                                url: 'http://120.24.208.184:3000/checkPay',
+                                url: 'http://localhost:3000/checkPay',
                                 method: "POST",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                                 data: param({IdCode: $scope.user.select})
@@ -491,7 +491,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
     //查询缴费结果页面
     .controller('ResultsCtrl',function($scope,$state,$http,$cookies){
         //
-        $http.get('http://120.24.208.184:3000/checkone',{
+        $http.get('http://localhost:3000/checkone',{
             params:{
                 selects: $cookies.IDcard
             }
@@ -519,19 +519,19 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         $scope.$on('$ionicView.beforeEnter', function (viewInfo, state) {
             //
             $http({
-                url: 'http://120.24.208.184:3000/DormCheckPay',
+                url: 'http://localhost:3000/DormCheckPay',
                 method: "POST",
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: param({user: $cookies.user})
             }).success(function(data){
                 //
                 if(data == 0){
-                    $http.get('http://120.24.208.184:3000/ProfessionIdGet', {params:{registerPhone: $cookies.user}})
+                    $http.get('http://localhost:3000/ProfessionIdGet', {params:{registerPhone: $cookies.user}})
                         .success(function(data){
                             //
                             $cookies.userInformation = data;
                             //
-                            $http.get('http://120.24.208.184:3000/dorm', {params: {ProfessionId: data}})
+                            $http.get('http://localhost:3000/dorm', {params: {ProfessionId: data}})
                                 .success(function(data2){
                                     //
                                     //$ionicPopup.alert({
@@ -544,7 +544,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                             //
                         }).then();
                     //
-                    $http.get('http://120.24.208.184:3000/isChoose', {params:{user: $cookies.user}})
+                    $http.get('http://localhost:3000/isChoose', {params:{user: $cookies.user}})
                         .success(function(data){
                             //
                             if(data){
@@ -554,7 +554,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                                     template: '你已经选择了宿舍，不能再选了'
                                 });
                                 $scope.bgcolor = "#cccccc";
-                                $scope.choosed = data;
+                                //$scope.choosed = data;
                             }else{
                                 $scope.canChose = true;
                             }
@@ -565,7 +565,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                         $ionicLoading.show({
                             templateUrl: 'templates/loadingPage.html'
                         });
-                        $http.get('http://120.24.208.184:3000/isChoose', {params:{user: $cookies.user}})
+                        $http.get('http://localhost:3000/isChoose', {params:{user: $cookies.user}})
                             .success(function(data){
                                 //
                                 if(data){
@@ -577,7 +577,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                                     });
                                 }else{
                                     //
-                                    $http.get('http://120.24.208.184:3000/room', {params:{_id: value}})
+                                    $http.get('http://localhost:3000/room', {params:{_id: value}})
                                         .success(function(data){
                                             //
                                             $ionicLoading.hide();
@@ -593,10 +593,12 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                                                         $ionicLoading.show({
                                                             templateUrl: 'templates/loadingPage.html'
                                                         });
-                                                        $http.get('http://120.24.208.184:3000/update', {params:{_id: value, phone: $cookies.user}})
+                                                        $http.get('http://localhost:3000/update', {params:{_id: value, phone: $cookies.user}})
                                                             .success(function(data){
                                                                 //
                                                                 $ionicLoading.hide();
+                                                                //
+                                                                $scope.choosed = data;
                                                                 //
                                                                 $ionicPopup.alert({
                                                                     title: '恭喜',
@@ -654,7 +656,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/dorm', {params: {ProfessionId: $cookies.userInformation}})
+            $http.get('http://localhost:3000/dorm', {params: {ProfessionId: $cookies.userInformation}})
                 .success(function(data){
                     //
                     $scope.users = data;
@@ -692,7 +694,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 templateUrl: 'templates/loadingPage.html'
             });
             //
-            $http.get('http://120.24.208.184:3000/stuone',{
+            $http.get('http://localhost:3000/stuone',{
                 params:{
                     registerPhone: $cookies.user
                 }
@@ -700,13 +702,13 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 .success(function(data){
                     $scope.student = data;
                     //
-                    $http.get('http://120.24.208.184:3000/stuoneArea', {params:{AreaId: data.AreaId}})
+                    $http.get('http://localhost:3000/stuoneArea', {params:{AreaId: data.AreaId}})
                         .success(function(data2){
                             //
                             $scope.student.AreaId = data2.AreaName;
                         });
                     //
-                    $http.get('http://120.24.208.184:3000/stuoneSex', {params:{user: $cookies.user}})
+                    $http.get('http://localhost:3000/stuoneSex', {params:{user: $cookies.user}})
                         .success(function(data3){
                             //
                             if(data3 == 0){
@@ -718,7 +720,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                             //
                         }).then();
                     //
-                    $http.get('http://120.24.208.184:3000/studentIsReport', {params:{user: $cookies.user}})
+                    $http.get('http://localhost:3000/studentIsReport', {params:{user: $cookies.user}})
                         .success(function(data4){
                             //
                             if(data4 == 0){
@@ -857,7 +859,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         $ionicLoading.show({
             templateUrl: 'templates/loadingPage.html'
         });
-        $http.get('http://120.24.208.184:3000/colleges')
+        $http.get('http://localhost:3000/colleges')
             .success(function(data){
                 $scope.colleges = data;
             }).error(function(){
@@ -885,7 +887,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         $ionicLoading.show({
             templateUrl: 'templates/loadingPage.html'
         });
-        $http.get('http://120.24.208.184:3000/professions', {
+        $http.get('http://localhost:3000/professions', {
             params:{CollegeId: $stateParams.collegeId}})
             .success(function(data){
                 $scope.professions = data;
@@ -912,7 +914,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         $ionicLoading.show({
             templateUrl: 'templates/loadingPage.html'
         });
-        $http.get('http://120.24.208.184:3000/classes',{
+        $http.get('http://localhost:3000/classes',{
             params:{
                 ProfessionId: $stateParams.professionId
             }
@@ -947,7 +949,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         $ionicLoading.show({
             templateUrl: 'templates/loadingPage.html'
         });
-        $http.get('http://120.24.208.184:3000/students', {
+        $http.get('http://localhost:3000/students', {
             params:{
                 Clazz:$scope.Clazz,
                 ProfessionId:$scope.ProfessionId
@@ -974,12 +976,12 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         $ionicLoading.show({
             templateUrl: 'templates/loadingPage.html'
         });
-        $http.get('http://120.24.208.184:3000/student', {
+        $http.get('http://localhost:3000/student', {
             params:{StudentID: $stateParams.StudentID}})
             .success(function(data){
                 $scope.student = data;
                 //
-                $http.get('http://120.24.208.184:3000/studentDorm', {params:{DormId: data.DormId}})
+                $http.get('http://localhost:3000/studentDorm', {params:{DormId: data.DormId}})
                     .success(function(data2){
                         //
                         $scope.DormNumber = data2
@@ -987,7 +989,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                         //
                     }).then();
                 //
-                $http.get('http://120.24.208.184:3000/studentArea', {params:{AreaId: data.AreaId}})
+                $http.get('http://localhost:3000/studentArea', {params:{AreaId: data.AreaId}})
                     .success(function(data2){
                         //
                         $scope.AreaName = data2;
@@ -1036,7 +1038,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/checkProfessionId', {params: {ProfessionName: value}})
+            $http.get('http://localhost:3000/checkProfessionId', {params: {ProfessionName: value}})
                 .success(function(data){
                     //
                     $scope.ProfessionChoose = data;
@@ -1054,7 +1056,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                     $ionicLoading.hide();
                 });
             //
-            $http.get('http://120.24.208.184:3000/getClassNumber', {params:{ProfessionName: value}})
+            $http.get('http://localhost:3000/getClassNumber', {params:{ProfessionName: value}})
                 .success(function(data){
                     //
                     var array1 = [];
@@ -1099,7 +1101,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             //$ionicPopup.alert({
             //    template: value
             //});
-            $http.get('http://120.24.208.184:3000/getProfession', {params:{CollegeName: value}})
+            $http.get('http://localhost:3000/getProfession', {params:{CollegeName: value}})
                 .success(function(data){
                     //
                     //$scope.computer = data;
@@ -1138,7 +1140,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 if($scope.message.title != '' && $scope.message.content != ''){
                     console.log($scope.nowtime);
                     $http({
-                        url: 'http://120.24.208.184:3000/messageSend',
+                        url: 'http://localhost:3000/messageSend',
                         method: "POST",
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                         data: param({classname: $scope.message.banji, title: $scope.message.title, content: $scope.message.content, time: $scope.nowtime, ProfessionId: $scope.ProfessionChoose, Clazz: $scope.ClassChoose})
@@ -1214,12 +1216,12 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 //
                 $scope.title = $cookies.CollegeName;
                 // 全校 未报道
-                $http.get('http://120.24.208.184:3000/checkIsReport', {params: {CollegeName: '全校', IsPay: 0}})
+                $http.get('http://localhost:3000/statistics', {params: {CollegeName: '全校', IsPay: 0}})
                     .success(function(data){
                         //
                         $scope.noreport = data;
                         // 全校 已报道
-                        $http.get('http://120.24.208.184:3000/checkIsReport', {params: {CollegeName: '全校', IsPay: 1}})
+                        $http.get('http://localhost:3000/statistics', {params: {CollegeName: '全校', IsPay: 1}})
                             .success(function(data){
                                 //
                                 $scope.reported = data;
@@ -1264,16 +1266,16 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                     //
                     $scope.title = $cookies.ProfessionName;
                 }
-                $ionicLoading.show({
-                    templateUrl: 'templates/loadingPage.html'
-                });
+                //$ionicLoading.show({
+                //    templateUrl: 'templates/loadingPage.html'
+                //});
                 //查询已报道人数
-                $http.get('http://120.24.208.184:3000/checkIsReport', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 1}})
+                $http.get('http://localhost:3000/checkIsReport', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 1}})
                     .success(function(data){
                         //
                         $scope.reported = data;
                         // 查询未报道人数
-                        $http.get('http://120.24.208.184:3000/checkIsReport', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 0}})
+                        $http.get('http://localhost:3000/checkIsReport', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 0}})
                             .success(function(data){
                                 //
                                 $scope.noreport = data;
@@ -1361,11 +1363,11 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 //
                 $scope.title = $cookies.CollegeName;
                 // 全校 未缴费
-                $http.get('http://120.24.208.184:3000/checkIsPay', {params: {CollegeName: '全校', IsPay: 0}})
+                $http.get('http://localhost:3000/checkIsPay', {params: {CollegeName: '全校', IsPay: 0}})
                     .success(function(data){
                         //
                         $scope.noreport = data;
-                        $http.get('http://120.24.208.184:3000/checkIsPay', {params: {CollegeName: '全校', IsPay: 1}})
+                        $http.get('http://localhost:3000/checkIsPay', {params: {CollegeName: '全校', IsPay: 1}})
                             .success(function(data){
                                 //
                                 $scope.reported = data;
@@ -1414,12 +1416,12 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                     templateUrl: 'templates/loadingPage.html'
                 });
                 //查询已缴费人数
-                $http.get('http://120.24.208.184:3000/checkIsPay', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 1}})
+                $http.get('http://localhost:3000/checkIsPay', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 1}})
                     .success(function(data){
                         //
                         $scope.reported = data;
                         // 查询未缴费人数
-                        $http.get('http://120.24.208.184:3000/checkIsPay', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 0}})
+                        $http.get('http://localhost:3000/checkIsPay', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 0}})
                             .success(function(data){
                                 //
                                 $scope.noreport = data;
@@ -1504,14 +1506,14 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/teaone',{
+            $http.get('http://localhost:3000/teaone',{
                 params:{
                     TeacherPhone:$cookies.teacher
                 }
             })
                 .success(function(data){
                     $scope.teacher = data;
-                    $http.get('http://120.24.208.184:3000/profession', {params:{ProfessionId: data.ProfessionId}})
+                    $http.get('http://localhost:3000/profession', {params:{ProfessionId: data.ProfessionId}})
                         .success(function(pro){
                             //
                             $scope.profession = pro;
@@ -1575,7 +1577,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/teacherInfors', {
+            $http.get('http://localhost:3000/teacherInfors', {
                 params:{
                     job: appuser,
                     phone:$scope.teacher.phone,
@@ -1622,7 +1624,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                     $ionicLoading.show({
                         templateUrl: 'templates/loadingPage.html'
                     });
-                    $http.get('http://120.24.208.184:3000/ChangePassword',{
+                    $http.get('http://localhost:3000/ChangePassword',{
                         params:{
                             oldPassword: $scope.teacher.lodpassword,
                             newPassword: $scope.teacher.entnewpassword,
@@ -1749,7 +1751,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/statistics', {params:{CollegeName: value}})
+            $http.get('http://localhost:3000/statistics', {params:{CollegeName: value}})
                 .success(function(data){
                     data.unshift('全院');
                     $scope.colleges = {
@@ -1779,7 +1781,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         $scope.professionChoose = function(value){
             $cookies.ProfessionName = value;
             //$ionicLoading.show();
-            $http.get('http://120.24.208.184:3000/countReport', {params: {ProfessionName: value}})
+            $http.get('http://localhost:3000/countReport', {params: {ProfessionName: value}})
                 .success(function(data){
                     //
                     $cookies.ProfessionId = data;
