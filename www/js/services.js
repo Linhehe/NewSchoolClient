@@ -13,8 +13,8 @@ angular.module('starter.services', [])
             document.addEventListener('jpush.openNotification',config.stac,false);
             //打开推送消息事件处理
             $window.plugins.jPushPlugin.openNotificationInAndroidCallback=config.oniac;
-            $window.plugins.jPushPlugin.receiveMessageIniOSCallback = receiveMessage;
-            $window.plugins.jPushPlugin.receiveNotificationIniOSCallback = notificationCallback;
+            //$window.plugins.jPushPlugin.receiveMessageIniOSCallback = receiveMessage;
+            //$window.plugins.jPushPlugin.receiveNotificationIniOSCallback = notificationCallback;
 
         }
         //获取状态

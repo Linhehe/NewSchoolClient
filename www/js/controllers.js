@@ -41,19 +41,19 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                     $scope.display = ' '
                 }else( $scope.display = 'none')
             };
-            console.log('$cookies.user = '+$cookies.user);
-            console.log('$cookies.teacher = '+$cookies.teacher);
+            //console.log('$cookies.user = '+window.localStorage['user']);
+            //console.log('$cookies.teacher = '+$cookies.teacher);
             $scope.register = function(){
                 $state.go('registerPhone');
             };
 
-            $scope.user = {phone: '13726224169', password: '123', usertype: '学生'};
+            $scope.user = {phone: '13726223041', password: '123', usertype: '学生'};
 
             $scope.choose = function(value){
                 if(value == '教师'){
                     $scope.user = {phone: '18676007857', password: '123', usertype: '教师'};
                 } else{
-                    $scope.user = {phone: '13726224169', password: '123', usertype: '学生'};
+                    $scope.user = {phone: '13726223041', password: '123', usertype: '学生'};
                 }
             };
 
@@ -80,13 +80,19 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                                 }
                                 else{
                                     if($scope.user.usertype == '学生'){
-                                        $cookies.user = $scope.user.phone;
+                                        // ****
+                                        window.localStorage['user'] = $scope.user.phone;
+                                        // ****
+                                        //$cookies.user = $scope.user.phone;
                                         var stuAlias = data.ProfessionId+"_"+data.Clazz;
                                         jpushService.setTagsWithAlias(['StudentsTags'],stuAlias);
                                         $state.go('index_tab.check');
+                                        //console.log('$cookies.user'+$cookies.user);
                                     }else{
-                                        $cookies.teacher = $scope.user.phone;
-                                        $cookies.CollegeName = "全校";
+                                        window.localStorage['teacher'] = $scope.user.phone;
+                                        //$cookies.teacher = $scope.user.phone;
+                                        //$cookies.CollegeName = "全校";
+                                        window.localStorage['CollegeName'] = '全校';
                                         jpushService.setTags(['TeachersTags']);
                                         $state.go('teacher_tabs.teacher_terrace');
                                     }
@@ -149,7 +155,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                             url: 'http://120.24.208.184:3000/sessions',
                             method: "POST",
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                            data: param({ID_card: $scope.user.ID_card, password: $scope.user.password, registerPhone: $cookies.phone})
+                            data: param({ID_card: $scope.user.ID_card, password: $scope.user.password, registerPhone: window.localStorage['phone']})
                         }).success(function(data){
                             //
                             //
@@ -272,7 +278,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                     //
                     if(data == 'success'){
                         //
-                        $cookies.phone = $scope.user.registerPhone;
+                        window.localStorage['phone'] = $scope.user.registerPhone;
                         $state.go('register');
                         //
                     }else{
@@ -306,7 +312,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         $ionicLoading.show({
             templateUrl: 'templates/loadingPage.html'
         });
-        $http.get('http://120.24.208.184:3000/letter', {params:{user: $cookies.user}})
+        $http.get('http://120.24.208.184:3000/letter', {params:{user: window.localStorage['user']}})
             .success(function(data){
                 //
                 //alert(data.content);
@@ -337,7 +343,8 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/messageGet', {params:{user: $cookies.user}})
+            //alert(window.localStorage['user']);
+            $http.get('http://120.24.208.184:3000/messageGet', {params:{user: window.localStorage['user']}})
                 .success(function(data){
                     //
                     $scope.message = data;
@@ -360,7 +367,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/messageGet', {params:{user: $cookies.user}})
+            $http.get('http://120.24.208.184:3000/messageGet', {params:{user: window.localStorage['user']}})
                 .success(function(data){
                     //
                     $scope.message = data;
@@ -425,12 +432,12 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 $http.get('http://120.24.208.184:3000/check', {
                     params: {
                         select: $scope.user.select,
-                        user: $cookies.user
+                        user: window.localStorage['user']
                     }
                 })
                     .success(function (data) {
                         if(data == 'true') {
-                            $cookies.IDcard = $scope.user.select;
+                            window.localStorage['IDcard'] = $scope.user.select;
                             //$state.go('results');
                             //
                             $http({
@@ -493,7 +500,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         //
         $http.get('http://120.24.208.184:3000/checkone',{
             params:{
-                selects: $cookies.IDcard
+                selects: window.localStorage['IDcard']
             }
         })
             .success(function(data){
@@ -522,14 +529,15 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 url: 'http://120.24.208.184:3000/DormCheckPay',
                 method: "POST",
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                data: param({user: $cookies.user})
+                data: param({user: window.localStorage['user']})
             }).success(function(data){
                 //
                 if(data == 0){
-                    $http.get('http://120.24.208.184:3000/ProfessionIdGet', {params:{registerPhone: $cookies.user}})
+                    $http.get('http://120.24.208.184:3000/ProfessionIdGet', {params:{registerPhone: window.localStorage['user']}})
                         .success(function(data){
                             //
-                            $cookies.userInformation = data;
+                            //$cookies.userInformation = data;
+                            window.localStorage['userInformation'] = data;
                             //
                             $http.get('http://120.24.208.184:3000/dorm', {params: {ProfessionId: data}})
                                 .success(function(data2){
@@ -544,7 +552,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                             //
                         }).then();
                     //
-                    $http.get('http://120.24.208.184:3000/isChoose', {params:{user: $cookies.user}})
+                    $http.get('http://120.24.208.184:3000/isChoose', {params:{user: window.localStorage['user']}})
                         .success(function(data){
                             //
                             if(data){
@@ -565,7 +573,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                         $ionicLoading.show({
                             templateUrl: 'templates/loadingPage.html'
                         });
-                        $http.get('http://120.24.208.184:3000/isChoose', {params:{user: $cookies.user}})
+                        $http.get('http://120.24.208.184:3000/isChoose', {params:{user: window.localStorage['user']}})
                             .success(function(data){
                                 //
                                 if(data){
@@ -593,7 +601,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                                                         $ionicLoading.show({
                                                             templateUrl: 'templates/loadingPage.html'
                                                         });
-                                                        $http.get('http://120.24.208.184:3000/update', {params:{_id: value, phone: $cookies.user}})
+                                                        $http.get('http://120.24.208.184:3000/update', {params:{_id: value, phone: window.localStorage['user']}})
                                                             .success(function(data){
                                                                 //
                                                                 $ionicLoading.hide();
@@ -656,7 +664,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
-            $http.get('http://120.24.208.184:3000/dorm', {params: {ProfessionId: $cookies.userInformation}})
+            $http.get('http://120.24.208.184:3000/dorm', {params: {ProfessionId: window.localStorage['userInformation']}})
                 .success(function(data){
                     //
                     $scope.users = data;
@@ -686,7 +694,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
     //*****************
     .controller('InformationCtrl', function($scope,$ionicPopup,$http,$state,$cookies,$ionicLoading,$timeout) {
         //
-        var user = $cookies.user;
+        var user = window.localStorage['user'];
         //
         $scope.$on('$ionicView.beforeEnter', function (viewInfo, state) {
             //
@@ -696,7 +704,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             //
             $http.get('http://120.24.208.184:3000/stuone',{
                 params:{
-                    registerPhone: $cookies.user
+                    registerPhone: window.localStorage['user']
                 }
             })
                 .success(function(data){
@@ -708,7 +716,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                             $scope.student.AreaId = data2.AreaName;
                         });
                     //
-                    $http.get('http://120.24.208.184:3000/stuoneSex', {params:{user: $cookies.user}})
+                    $http.get('http://120.24.208.184:3000/stuoneSex', {params:{user: window.localStorage['user']}})
                         .success(function(data3){
                             //
                             if(data3 == 0){
@@ -720,7 +728,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                             //
                         }).then();
                     //
-                    $http.get('http://120.24.208.184:3000/studentIsReport', {params:{user: $cookies.user}})
+                    $http.get('http://120.24.208.184:3000/studentIsReport', {params:{user: window.localStorage['user']}})
                         .success(function(data4){
                             //
                             if(data4 == 0){
@@ -755,10 +763,14 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 okTexet:'确定'
             }).then(function(res){
                 if(res == true){
-                    delete $cookies["user"];
-                    delete $cookies["phone"];
-                    delete $cookies["IDcard"];
-                    delete $cookies["userInformation"];
+                    //delete $cookies["user"];
+                    //delete $cookies["phone"];
+                    //delete $cookies["IDcard"];
+                    //delete $cookies["userInformation"];
+                    window.localStorage['user'] = '';
+                    window.localStorage['phone'] = '';
+                    window.localStorage['IDcard'] = '';
+                    window.localStorage['userInformation'] = '';
                     $state.go('login');
                 }else{
 
@@ -1212,70 +1224,80 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 $state.go('checkStatistics');
             };
             //
-            if($cookies.CollegeName == '全校'){
+            if(window.localStorage['CollegeName'] == '全校'){
                 //
-                $scope.title = $cookies.CollegeName;
-                // 全校 未报道
-                $http.get('http://120.24.208.184:3000/statistics', {params: {CollegeName: '全校', IsPay: 0}})
-                    .success(function(data){
-                        //
-                        $scope.noreport = data;
-                        // 全校 已报道
-                        $http.get('http://120.24.208.184:3000/statistics', {params: {CollegeName: '全校', IsPay: 1}})
-                            .success(function(data){
-                                //
-                                $scope.reported = data;
-                            }).error(function(){
-                                //
-                                $timeout(function(){
-                                    $ionicPopup.alert({
-                                        title: '抱歉~',
-                                        template: '网络不给力...'
-                                    });
-                                    $ionicLoading.hide();
-                                },30000);
-                            }).then(function(){
-                                //
-                                $ionicLoading.hide();
-                                $scope.reported_bfb = $scope.reported/($scope.reported+$scope.noreport)*100;
-                                $scope.noreport_bfb = $scope.noreport/($scope.reported+$scope.noreport)*100;
-                                //*************************
-                                $scope.data = [$scope.reported/($scope.reported+$scope.noreport), $scope.noreport/($scope.reported+$scope.noreport)];
-                                $scope.colours = ['#507bee','#ec4f79'];
-                                $scope.labels = ["已报道", "未报道"];
-                            });
-                    }).error(function(){
-                        //
-                        $timeout(function(){
-                            $ionicPopup.alert({
-                                title: '抱歉~',
-                                template: '网络不给力...'
-                            });
-                            $ionicLoading.hide();
-                        },30000);
-                    }).then(function(){
-                        //
-                        $ionicLoading.hide();
-                    });
+                $scope.title = '数据统计--报道'
+                // 全校 未缴费
+                $scope.reported = 5000;
+                $scope.noreport = 5000;
+                $scope.reported_bfb = $scope.reported/($scope.reported+$scope.noreport)*100;
+                $scope.noreport_bfb = $scope.noreport/($scope.reported+$scope.noreport)*100;
+                //*************************
+                $scope.data = [$scope.reported/($scope.reported+$scope.noreport), $scope.noreport/($scope.reported+$scope.noreport)];
+                $scope.colours = ['#507bee','#ec4f79'];
+                $scope.labels = ["已缴费", "未缴费"];
+                //$scope.title = $cookies.CollegeName;
+                //// 全校 未报道
+                //$http.get('http://120.24.208.184:3000/statistics', {params: {CollegeName: '全校', IsPay: 0}})
+                //    .success(function(data){
+                //        //
+                //        $scope.noreport = data;
+                //        // 全校 已报道
+                //        $http.get('http://120.24.208.184:3000/statistics', {params: {CollegeName: '全校', IsPay: 1}})
+                //            .success(function(data){
+                //                //
+                //                $scope.reported = data;
+                //            }).error(function(){
+                //                //
+                //                $timeout(function(){
+                //                    $ionicPopup.alert({
+                //                        title: '抱歉~',
+                //                        template: '网络不给力...'
+                //                    });
+                //                    $ionicLoading.hide();
+                //                },30000);
+                //            }).then(function(){
+                //                //
+                //                $ionicLoading.hide();
+                //                $scope.reported_bfb = $scope.reported/($scope.reported+$scope.noreport)*100;
+                //                $scope.noreport_bfb = $scope.noreport/($scope.reported+$scope.noreport)*100;
+                //                //*************************
+                //                $scope.data = [$scope.reported/($scope.reported+$scope.noreport), $scope.noreport/($scope.reported+$scope.noreport)];
+                //                $scope.colours = ['#507bee','#ec4f79'];
+                //                $scope.labels = ["已报道", "未报道"];
+                //            });
+                //    }).error(function(){
+                //        //
+                //        $timeout(function(){
+                //            $ionicPopup.alert({
+                //                title: '抱歉~',
+                //                template: '网络不给力...'
+                //            });
+                //            $ionicLoading.hide();
+                //        },30000);
+                //    }).then(function(){
+                //        //
+                //        $ionicLoading.hide();
+                //    });
             } else{
-                if($cookies.ProfessionName == '全院'){
+                if(window.localStorage['ProfessionName'] == '全院'){
                     //
-                    $scope.title = $cookies.CollegeName;
+                    $scope.title = window.localStorage['CollegeName'];
                     //
                 } else{
                     //
-                    $scope.title = $cookies.ProfessionName;
+                    $scope.title = window.localStorage['ProfessionName'];
                 }
-                //$ionicLoading.show({
-                //    templateUrl: 'templates/loadingPage.html'
-                //});
+                $ionicLoading.show({
+                    templateUrl: 'templates/loadingPage.html'
+                });
                 //查询已报道人数
-                $http.get('http://120.24.208.184:3000/checkIsReport', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 1}})
+                $http.get('http://120.24.208.184:3000/checkIsReport', {params:{CollegeName: window.localStorage['CollegeName'], ProfessionName: window.localStorage['ProfessionName'], IsPay: 1}})
                     .success(function(data){
                         //
                         $scope.reported = data;
                         // 查询未报道人数
-                        $http.get('http://120.24.208.184:3000/checkIsReport', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 0}})
+                        $http.get('http://120.24.208.184:3000/checkIsReport', {params:{CollegeName: window.localStorage['CollegeName'], ProfessionName: window.localStorage['ProfessionName'], IsPay: 0}})
                             .success(function(data){
                                 //
                                 $scope.noreport = data;
@@ -1316,12 +1338,12 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             ////alert($cookies.ProfessionId);
             //
             //// 已注册
-            //$http.get('http://10.0.1.5:3000/countIsReports', {params:{ProfessionId: $cookies.ProfessionId}})
+            //$http.get('http://120.24.208.184:3000/countIsReports', {params:{ProfessionId: $cookies.ProfessionId}})
             //    .success(function(data){
             //        //
             //        $scope.reported = data;
             //        //
-            //        $http.get('http://10.0.1.5:3000/countNoReports', {params:{ProfessionId: $cookies.ProfessionId}})
+            //        $http.get('http://120.24.208.184:3000/countNoReports', {params:{ProfessionId: $cookies.ProfessionId}})
             //            .success(function(data){
             //                //
             //                $scope.noreport = data;
@@ -1359,69 +1381,79 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 $state.go('checkStatistics');
             };
 
-            if($cookies.CollegeName == '全校'){
+            if(window.localStorage['CollegeName'] == '全校'){
                 //
-                $scope.title = $cookies.CollegeName;
+                //$scope.title = $cookies.CollegeName;
+                $scope.title = '数据统计--缴费'
                 // 全校 未缴费
-                $http.get('http://120.24.208.184:3000/checkIsPay', {params: {CollegeName: '全校', IsPay: 0}})
-                    .success(function(data){
-                        //
-                        $scope.noreport = data;
-                        $http.get('http://120.24.208.184:3000/checkIsPay', {params: {CollegeName: '全校', IsPay: 1}})
-                            .success(function(data){
-                                //
-                                $scope.reported = data;
-                            }).error(function(){
-                                //
-                                $timeout(function(){
-                                    $ionicPopup.alert({
-                                        title: '抱歉~',
-                                        template: '网络不给力...'
-                                    });
-                                    $ionicLoading.hide();
-                                },30000);
-                            }).then(function(){
-                                //
-                                $ionicLoading.hide();
-                                $scope.reported_bfb = $scope.reported/($scope.reported+$scope.noreport)*100;
-                                $scope.noreport_bfb = $scope.noreport/($scope.reported+$scope.noreport)*100;
-                                //*************************
-                                $scope.data = [$scope.reported/($scope.reported+$scope.noreport), $scope.noreport/($scope.reported+$scope.noreport)];
-                                $scope.colours = ['#507bee','#ec4f79'];
-                                $scope.labels = ["已缴费", "未缴费"];
-                            });
-                    }).error(function(){
-                        //
-                        $timeout(function(){
-                            $ionicPopup.alert({
-                                title: '抱歉~',
-                                template: '网络不给力...'
-                            });
-                            $ionicLoading.hide();
-                        },30000);
-                    }).then(function(){
-                        //
-                        $ionicLoading.hide();
-                    });
+                $scope.reported = 5000;
+                $scope.noreport = 5000;
+                $scope.reported_bfb = $scope.reported/($scope.reported+$scope.noreport)*100;
+                $scope.noreport_bfb = $scope.noreport/($scope.reported+$scope.noreport)*100;
+                //*************************
+                $scope.data = [$scope.reported/($scope.reported+$scope.noreport), $scope.noreport/($scope.reported+$scope.noreport)];
+                $scope.colours = ['#507bee','#ec4f79'];
+                $scope.labels = ["已缴费", "未缴费"];
+                //$http.get('http://120.24.208.184:3000/checkIsPay', {params: {CollegeName: '全校', IsPay: 0}})
+                //    .success(function(data){
+                //        //
+                //        $scope.noreport = data;
+                //        $http.get('http://120.24.208.184:3000/checkIsPay', {params: {CollegeName: '全校', IsPay: 1}})
+                //            .success(function(data){
+                //                //
+                //                $scope.reported = data;
+                //            }).error(function(){
+                //                //
+                //                $timeout(function(){
+                //                    $ionicPopup.alert({
+                //                        title: '抱歉~',
+                //                        template: '网络不给力...'
+                //                    });
+                //                    $ionicLoading.hide();
+                //                },30000);
+                //            }).then(function(){
+                //                //
+                //                $ionicLoading.hide();
+                //                $scope.reported_bfb = $scope.reported/($scope.reported+$scope.noreport)*100;
+                //                $scope.noreport_bfb = $scope.noreport/($scope.reported+$scope.noreport)*100;
+                //                //*************************
+                //                $scope.data = [$scope.reported/($scope.reported+$scope.noreport), $scope.noreport/($scope.reported+$scope.noreport)];
+                //                $scope.colours = ['#507bee','#ec4f79'];
+                //                $scope.labels = ["已缴费", "未缴费"];
+                //            });
+                //    }).error(function(){
+                //        //
+                //        $timeout(function(){
+                //            $ionicPopup.alert({
+                //                title: '抱歉~',
+                //                template: '网络不给力...'
+                //            });
+                //            $ionicLoading.hide();
+                //        },30000);
+                //    }).then(function(){
+                //        //
+                //        $ionicLoading.hide();
+                //    });
             } else{
-                if($cookies.ProfessionName == '全院'){
+                if(window.localStorage['ProfessionName'] == '全院'){
                     //
-                    $scope.title = $cookies.CollegeName;
+                    $scope.title = window.localStorage['CollegeName'];
                     //
                 } else{
                     //
-                    $scope.title = $cookies.ProfessionName;
+                    $scope.title = window.localStorage['ProfessionName'];
                 }
                 $ionicLoading.show({
                     templateUrl: 'templates/loadingPage.html'
                 });
                 //查询已缴费人数
-                $http.get('http://120.24.208.184:3000/checkIsPay', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 1}})
+                $http.get('http://120.24.208.184:3000/checkIsPay', {params:{CollegeName: window.localStorage['CollegeName'], ProfessionName: window.localStorage['ProfessionName'], IsPay: 1}})
                     .success(function(data){
                         //
                         $scope.reported = data;
+                        $scope.isShow = 'show';
                         // 查询未缴费人数
-                        $http.get('http://120.24.208.184:3000/checkIsPay', {params:{CollegeName: $cookies.CollegeName, ProfessionName: $cookies.ProfessionName, IsPay: 0}})
+                        $http.get('http://120.24.208.184:3000/checkIsPay', {params:{CollegeName: window.localStorage['CollegeName'], ProfessionName: window.localStorage['ProfessionName'], IsPay: 0}})
                             .success(function(data){
                                 //
                                 $scope.noreport = data;
@@ -1508,7 +1540,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             });
             $http.get('http://120.24.208.184:3000/teaone',{
                 params:{
-                    TeacherPhone:$cookies.teacher
+                    TeacherPhone:window.localStorage['teacher']
                 }
             })
                 .success(function(data){
@@ -1540,10 +1572,10 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                 okTexet:'确定'
             }).then(function(res){
                 if(res == true){
-                    delete $cookies["teacher"];
-                    delete $cookies["CollegeName"];
-                    delete $cookies["ProfessionName"];
-                    delete $cookies["ProfessionId"];
+                    window.localStorage["teacher"] = '';
+                    window.localStorage["CollegeName"] = '';
+                    window.localStorage["ProfessionName"] = '';
+                    window.localStorage["ProfessionId"] = '';
                     $state.go('login');
                 }else{
 
@@ -1628,7 +1660,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
                         params:{
                             oldPassword: $scope.teacher.lodpassword,
                             newPassword: $scope.teacher.entnewpassword,
-                            user: $cookies.teacher
+                            user: window.localStorage['teacher']
                         }
                     })
                         .success(function(data){
@@ -1734,7 +1766,6 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
             $state.go('statistics_tab.report');
         };
         $scope.colleges = {
-            "全校": [],
             "计算机学院": [],
             "经管学院": [],
             "外国语学院": [],
@@ -1747,7 +1778,7 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         };
 
         $scope.collegeChoose = function(value){
-            $cookies.CollegeName = value;
+            window.localStorage['CollegeName'] = value;
             $ionicLoading.show({
                 templateUrl: 'templates/loadingPage.html'
             });
@@ -1779,12 +1810,12 @@ angular.module('starter.controllers', ['ionic','chart.js','ngCookies'])
         };
 
         $scope.professionChoose = function(value){
-            $cookies.ProfessionName = value;
+            window.localStorage['ProfessionName'] = value;
             //$ionicLoading.show();
             $http.get('http://120.24.208.184:3000/countReport', {params: {ProfessionName: value}})
                 .success(function(data){
                     //
-                    $cookies.ProfessionId = data;
+                    window.localStorage['ProfessionId'] = data;
                 }).error(function(){
                     //
                     $timeout(function () {

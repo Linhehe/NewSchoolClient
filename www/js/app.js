@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.directive', 'ionic.service.core', 'ionic.service.deploy'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.directive', 'ionic.service.core', 'ionic.service.deploy', 'ngCookies', 'ngCordova'])
 
 .run(function($ionicPlatform,jpushService,$state,$cookies,$ionicPopup,$ionicDeploy) {
 
